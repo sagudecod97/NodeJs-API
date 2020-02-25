@@ -8,11 +8,13 @@ const url = require('url')
 const server = http.createServer((req, res) => {
     // First Parse the URL
     let parsedURL = url.parse(req.url, true)
-    
     // Getting the URL
     let path = parsedURL.pathname
     let trimmedPath = path.replace(/^\/+|\/+$/g, '')
-    console.log(trimmedPath)
+
+    // get the req Method
+    let reqMethod = req.method.toUpperCase()
+    console.log(`URL: ${trimmedPath} METHOD: ${reqMethod}`)
 
     res.end('Hello World\n')
 })
