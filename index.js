@@ -4,6 +4,7 @@
 
 const http = require('http')
 const url = require('url')
+const StringDecoder = require('string_decoder').StringDecoder
 
 const server = http.createServer((req, res) => {
     // First Parse the URL
@@ -17,8 +18,21 @@ const server = http.createServer((req, res) => {
 
     // Query string as Object
     let queryObj = parsedURL.query
-    
-    res.end('Hello World\n')
+
+    // Headers as Object
+    let headerObj = req.headers
+
+    // Get Payload
+    let decoder = new StringDecoder('utf-8')
+    let buffer = ''
+    req.on('data', (chunk) => {
+        buffer += decoder.write(chunk)
+    })
+    req.on('end', () => {
+        buffer += decoder.end()
+        res.end('Hello World\n')
+    })
+
 })
 
 server.listen(3000, () => {
