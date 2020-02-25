@@ -14,8 +14,10 @@ const server = http.createServer((req, res) => {
 
     // get the req Method
     let reqMethod = req.method.toUpperCase()
-    console.log(`URL: ${trimmedPath} METHOD: ${reqMethod}`)
 
+    // Query string as Object
+    let queryObj = parsedURL.query
+    
     res.end('Hello World\n')
 })
 
