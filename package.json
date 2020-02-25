@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-api",
+  "version": "1.0.0",
+  "description": "NodeJs API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagudecod97/NodeJs-API.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Santiago Agudelo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sagudecod97/NodeJs-API/issues"
+  },
+  "homepage": "https://github.com/sagudecod97/NodeJs-API#readme"
+}
