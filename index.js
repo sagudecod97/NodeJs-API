@@ -3,12 +3,36 @@
  */
 
 const http = require('http')
+const https = require('https')
 const url = require('url')
+const fs = require('fs')
 const StringDecoder = require('string_decoder').StringDecoder
 
 const config = require('./config')
 
-const server = http.createServer((req, res) => {
+// Instatiate HTTP Server
+const httpServer = http.createServer((req, res) => {
+    unifiedServer(req, res)
+})
+httpServer.listen(config.httpPORT, () => {
+    console.log(`Server listening on port: ${config.httpPORT}\nIn env: ${config.envName}`)
+})
+
+// Instatitate HTTPS Server
+let httpsServerOptions = {
+    'key': fs.readFileSync('./https/key.pem'),
+    'cert': fs.readFileSync('./https/cert.pem')
+}
+const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
+    unifiedServer(req, res)
+})
+httpsServer.listen(config.httpsPORT, () => {
+    console.log(`Server listening on port: ${config.httpsPORT}\nIn env: ${config.envName}`)
+})
+
+
+// HTTP & HTTPS
+let unifiedServer = function(req, res) {
     // First Parse the URL
     let parsedURL = url.parse(req.url, true)
     // Getting the URL
@@ -63,15 +87,8 @@ const server = http.createServer((req, res) => {
             console.log('Returned response:\n', statusCode, payload)
         })
 
-
-        res.end('Hello World\n')
     })
-
-})
-
-server.listen(config.PORT, () => {
-    console.log(`Server listening on port: ${config.PORT}\nIn env: ${config.envName}`)
-})
+}
 
 // Handlers
 let handlers = {}
