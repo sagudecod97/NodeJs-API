@@ -9,6 +9,30 @@ const fs = require('fs')
 const StringDecoder = require('string_decoder').StringDecoder
 
 const config = require('./config')
+const _data = require('./lib/data')
+
+// Test --> Delete later
+_data.create('test', 'newFile', {'name': 'Santiago'}, function(err) {
+    console.log('ERROR:', err)
+})
+
+_data.read('test', 'newFilesito1', function(err, data) {
+    if (err) {
+        console.log('ERROR Reading:', err)
+    } else {
+        console.log('Data:', data)
+    }    
+})
+_data.update('test', 'newFile', {'name': 'Juan'}, (err, data) => {
+    if (!err) {
+        console.log('Data upadted:', data)
+    } else {
+        console.log('ERROR Updating:', err)
+    }
+})
+_data.delete('test', 'newFilesito', (err) => {
+    console.log('ERROR:', err)
+})
 
 // Instatiate HTTP Server
 const httpServer = http.createServer((req, res) => {
